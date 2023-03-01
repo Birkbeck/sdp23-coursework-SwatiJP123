@@ -1,9 +1,8 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
@@ -15,12 +14,11 @@ import static sml.Registers.Register;
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author Swati Patel
  */
 public final class Translator {
 
     private final String fileName; // source file of SML code
-
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
@@ -66,25 +64,82 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        switch (opcode) {
+    /*     switch (opcode) {
             case AddInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
                 return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
 
-            // TODO: add code for all other types of instructions
+            // TODO: add code for all other types of instructions [complete]
+            case MovInstruction.OP_CODE -> {
+                String r = scan();
+                int s = Integer.valueOf(scan());
+                return new MovInstruction(label, Register.valueOf(r), s);
+            }
+            case SubInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
 
-            // TODO: Then, replace the switch by using the Reflection API
+            case MulInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
 
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-
+            case DivInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case OutInstruction.OP_CODE -> {
+                String r = scan();
+                return new OutInstruction(label, Register.valueOf(r));
+            }
+            case JnzInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new JnzInstruction(label, Register.valueOf(r), s);
+            }
             default -> {
                 System.out.println("Unknown instruction: " + opcode);
             }
+        }*/
+           // TODO: Then, replace the switch by using the Reflection API [complete]
+          String cap="";
+           try {
+            cap = opcode.substring(0, 1).toUpperCase() + opcode.substring(1);
+            Class<?> instructionClass = Class.forName("sml.instruction." + cap + "Instruction");
+            String r = scan();
+            String s = null;
+            Constructor<?> constructor =null;
+            if(cap.contentEquals("Mov")){
+                constructor = instructionClass.getConstructor(String.class, RegisterName.class, int.class);
+                s = scan();
+                return (Instruction) constructor.newInstance(label, Register.valueOf(r), Integer.valueOf(s));
+            }
+            else if(cap.contentEquals("Add")||cap.contentEquals("Sub")||cap.contentEquals("Mul")||cap.contentEquals("Div")){
+                constructor = instructionClass.getConstructor(String.class, RegisterName.class, RegisterName.class);
+                s = scan();
+                return (Instruction) constructor.newInstance(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            else if(cap.contentEquals("Jnz")){
+                constructor = instructionClass.getConstructor(String.class, RegisterName.class, String.class);
+                s = scan();
+                return (Instruction) constructor.newInstance(label, Register.valueOf(r), s);}
+            else if(cap.contentEquals("Out")){
+                constructor = instructionClass.getConstructor(String.class, RegisterName.class);
+                return (Instruction) constructor.newInstance(label, Register.valueOf(r));
+            }
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            System.out.println("Unknown instruction: " + opcode);
         }
-        return null;
+            // TODO: Next, use dependency injection to allow this machine class
+            //       to work with different sets of opcodes (different CPUs)
+
+     return null;
     }
 
 
