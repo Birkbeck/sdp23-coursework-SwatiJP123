@@ -30,8 +30,8 @@ class DivInstructionTest {
 
   @Test
   void executeValid() {
-    reg.set(EAX, 12);
-    reg.set(EBX, 6);
+    reg.set(EAX, 2);
+    reg.set(EBX, 5);
     Instruction instruction = new DivInstruction(null, EAX, EBX);
     instruction.execute(mach);
     Assertions.assertEquals(2, mach.getRegisters().get(EAX));
@@ -39,8 +39,8 @@ class DivInstructionTest {
 
   @Test
   void executeValidTwo() {
-    reg.set(EAX, -35);
-    reg.set(EBX, 6);
+    reg.set(EAX, -5);
+    reg.set(EBX, 4);
     Instruction instruction = new DivInstruction(null, EAX, EBX);
     instruction.execute(mach);
     Assertions.assertEquals(-5, mach.getRegisters().get(EAX));

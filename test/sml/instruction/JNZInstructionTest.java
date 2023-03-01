@@ -30,7 +30,7 @@ public class JNZInstructionTest {
     @Test
     void executeValid() {
         reg.set(EAX, 10);
-        mach.getLabels().addLabel("I1",20);
+        mach.getLabels().addLabel("L",20);
         Instruction instruction = new JNZInstruction(null,EAX,"I1");
         Assertions.assertEquals(20, instruction.execute(mach));
     }
@@ -38,7 +38,7 @@ public class JNZInstructionTest {
     @Test
     void JNZexecTestzero() {
         reg.set(EAX, 0);
-        mach.getLabels().addLabel("I1",0);
+        mach.getLabels().addLabel("L",0);
         Instruction instruction = new JNZInstruction(null, EAX, "I1");
         Assertions.assertEquals(-1, instruction.execute(mach));
     }

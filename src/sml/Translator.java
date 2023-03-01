@@ -76,6 +76,11 @@ public final class Translator {
             }
 
             // TODO: add code for all other types of instructions [complete]
+            case MovInstruction.OP_CODE -> {
+                String r = scan();
+                int s = Integer.valueOf(scan());
+                return new MovInstruction(label, Register.valueOf(r), s);
+            }
             case SubInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
@@ -97,21 +102,16 @@ public final class Translator {
                 String r = scan();
                 return new OutInstruction(label, Register.valueOf(r));
             }
-            case MovInstruction.OP_CODE -> {
-                String r = scan();
-                int s = 10;
-                return new MovInstruction(label, Register.valueOf(r), s);
-            }
             case JNZInstruction.OP_CODE -> {
                 String r = scan();
-                String nextIns = scan();
-                return new JNZInstruction(label, Register.valueOf(r), nextIns);
+                String s = scan();
+                return new JNZInstruction(label, Register.valueOf(r), s);
             }
             default -> {
                 System.out.println("Unknown instruction: " + opcode);
             }
         }
-            // TODO: Then, replace the switch by using the Reflection API [complete]
+           // TODO: Then, replace the switch by using the Reflection API [complete]
             try {
                 String instructionClassName = opcode + "Instruction";
                 Class<?> instructionClass = Class.forName(instructionClassName);
@@ -123,12 +123,13 @@ public final class Translator {
                 e.printStackTrace();
                 return null;
             }
+            
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
 
             
         
-        //return null;
+       // return null;
     }
 
 

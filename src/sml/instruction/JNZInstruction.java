@@ -7,14 +7,14 @@ import sml.RegisterName;
 import java.util.Objects;
 
 public class JNZInstruction extends Instruction {
-    private final RegisterName condition;
-    private final String nextIns;
+    private final RegisterName loop;
+    private final String inst;
 
     public static final String OP_CODE = "jnz";
-    public JNZInstruction(String label, RegisterName condition, String nextIns) {
+    public JNZInstruction(String label, RegisterName loop, String inst) {
         super(label, OP_CODE);
-        this.condition = condition;
-        this.nextIns = nextIns;
+        this.loop = loop;
+        this.inst = inst;
     }
 
     /**
@@ -27,15 +27,15 @@ public class JNZInstruction extends Instruction {
      */
     @Override
     public int execute(Machine m) {
-        if(m.getRegisters().get(condition) != 0){
-            return m.getLabels().getAddress(nextIns);
+        if(m.getRegisters().get(loop) != 0){
+            return m.getLabels().getAddress(inst);
         }
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
     @Override
     public String toString() {
-        return getLabelString() + getOpcode() + " " + condition + " " + nextIns;
+        return getLabelString() + getOpcode() + " " + loop + " " + inst;
     }
 
     @Override
@@ -44,14 +44,14 @@ public class JNZInstruction extends Instruction {
         if (o == null || getClass() != o.getClass()) return false;
         if (o instanceof JNZInstruction other) {
             return Objects.equals(this.label, other.label)
-                    && Objects.equals(condition, other.condition)
-                    && Objects.equals(nextIns, other.nextIns);
+                    && Objects.equals(loop, other.loop)
+                    && Objects.equals(inst, other.inst);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(label, condition, nextIns);
+        return Objects.hash(label, loop, inst);
     }
 }
