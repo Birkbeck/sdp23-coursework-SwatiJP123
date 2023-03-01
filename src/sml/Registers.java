@@ -3,11 +3,14 @@ package sml;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
+// TODO: write a JavaDoc for the class [complete]
 
 /**
  *
- * @author ...
+ * @author Swati Patel
+ * The Registers class represents the registers used in an x86-64 computer architecture. It contains eight registers: EAX, EBX, ECX, EDX, ESP, EBP, ESI, and EDI.
+ * The class provides methods to set and get the value stored in a register, as well as to clear all the registers to 0.
+ * The class also provides an implementation for the equals, hashCode, and toString methods.
  */
 public final class Registers {
     private final Map<Register, Integer> registers = new HashMap<>();
@@ -45,7 +48,7 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
-    // TODO: use pattern matching for instanceof
+    // TODO: use pattern matching for instanceof [complete]
     // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
     @Override
     public boolean equals(Object o) {
