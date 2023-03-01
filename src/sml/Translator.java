@@ -112,7 +112,7 @@ public final class Translator {
             }
         }
            // TODO: Then, replace the switch by using the Reflection API [complete]
-            try {
+      /*      try {
                 String instructionClassName = opcode + "Instruction";
                 Class<?> instructionClass = Class.forName(instructionClassName);
                 Constructor<?> constructor = instructionClass.getConstructor(String.class, Register.class, Register.class);
@@ -123,13 +123,13 @@ public final class Translator {
                 e.printStackTrace();
                 return null;
             }
-            
+        */            
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
 
             
         
-       // return null;
+        return null;
     }
 
 
