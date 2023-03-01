@@ -10,7 +10,8 @@ import sml.RegisterName;
  * @author
  */
 
-public class AddInstruction extends Instruction {
+
+ public class AddInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
@@ -33,5 +34,13 @@ public class AddInstruction extends Instruction {
 	@Override
 	public String toString() {
 		return getLabelString() + getOpcode() + " " + result + " " + source;
+	}
+	@Override
+	public int hashCode() {
+		return 0;
+	}
+	@Override
+	public boolean equals(Object o) {
+		return true;
 	}
 }

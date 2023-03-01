@@ -19,9 +19,9 @@ amongst other skills.
 
 ## Details
 
-**Name**: Your name should appear here
+**Name**: Swati Jitendrakumar Patel
 
-**Your userid**: e.g., myname01
+**Your userid**: e.g., SwatiJP123 (Git id); spatel21 (Birkbeck student id)
 
 Please do not forget to complete this part as too often we have "orphaned" repositories,
 which can require months to sort out.
