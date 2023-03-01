@@ -1,12 +1,9 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -111,7 +108,6 @@ public final class Translator {
             }
         }*/
            // TODO: Then, replace the switch by using the Reflection API [complete]
-<<<<<<< HEAD
           String cap="";
            try {
             cap = opcode.substring(0, 1).toUpperCase() + opcode.substring(1);
@@ -144,26 +140,6 @@ public final class Translator {
             //       to work with different sets of opcodes (different CPUs)
 
      return null;
-=======
-      /*      try {
-                String instructionClassName = opcode + "Instruction";
-                Class<?> instructionClass = Class.forName(instructionClassName);
-                Constructor<?> constructor = instructionClass.getConstructor(String.class, Register.class, Register.class);
-                String r = scan();
-                String s = scan();
-                return (Instruction) constructor.newInstance(label, Register.valueOf(r), Register.valueOf(s));
-            } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-                return null;
-            }
-        */            
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-
-            
-        
-        return null;
->>>>>>> 9f6813c0e5ca3cf345dd729f9dd387fff30f3821
     }
 
 
